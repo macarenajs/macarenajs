@@ -1,6 +1,22 @@
 const repository = require('./repository');
-const presenter = require('./presenter');
+const presenters = require('./presenter');
 
+
+module.exports = function (app) {
+  app.post('/posts', create);
+  app.get('/posts', list);
+  app.get('/posts/:id', view);
+  app.put('/posts/:id', update);
+  app.delete('/posts/:id', remove);
+};
+
+
+async function create(req, res) {
+  const postRepository = repository('post');
+  const post = await createPost({ postRepository, data: req.body });
+
+  res.json(presenter('posts')(post));
+}
 
 async function list(req, res) {
   const postRepository = repository('post');
