@@ -1,9 +1,17 @@
 const express = require('express');
 
+const config = require('../config');
 const debug = require('./debug');
+const routes = require('./routes');
 
+module.exports = {
+  application,
+  start,
+};
 
-export function application(config) {
+function application() {
+  handleErrors();
+
   const app = express();
 
   routes(app);
@@ -11,12 +19,26 @@ export function application(config) {
   return app;
 }
 
-export async function start(config) {
-  const app = application(config);
+async function start() {
+  const app = application();
 
-  const { http } = config.env;
+  const { http } = config;
+
 
   app.listen(http.port, http.host, () => {
     debug('Server started at [%s:%s]', http.host, http.port);
   });
 }
+
+
+function handleErrors() {
+  handlePromiseRejectionError();
+}
+
+
+function handlePromiseRejectionError() {
+  process.on('unhandledRejection', (reason) => {
+    console.error(reason.stack || reason);
+  });
+}
+
