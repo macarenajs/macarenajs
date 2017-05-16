@@ -1,0 +1,5 @@
+const server = require('../src/');
+
+console.log('here?!');
+console.log(server);
+server.start();
