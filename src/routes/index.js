@@ -1,16 +1,16 @@
 const meaningErrorMiddleware = require('meaning-error-middleware');
-const wrap = require('express-async-wrap');
+const proxyApp = require('asyncify-express');
 
-
-const security = require('./middlewares/security');
-const fileLoders = require('../file-loaders');
+const httpParser = require('../middlewares/http-parser');
+const security = require('../middlewares/security');
+const fileLoders = require('../files-loader');
 
 module.exports = function routes(app) {
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(bodyParser.json());
+  app.use(httpParser());
   app.use(security());
 
-  loadRoutes().map(route => applyAsyncAwaitToRouteIfNeeded(route);
+  const proxy = proxyApp(app);
+  loadRoutes().forEach(endPoints => endPoints(proxy));
 
   app.use(meaningErrorMiddleware);
 };
@@ -18,18 +18,4 @@ module.exports = function routes(app) {
 
 function loadRoutes() {
   return fileLoders(__dirname);
-}
-
-
-function applyAsyncAwaitToRouteIfNeeded(route) {
-  if (isAsync(route)) {
-    return wrap(route);
-  }
-
-  return route;
-}
-
-
-function isAsync(route) {
-  return fn.constructor.name === 'AsyncFunction';
 }
