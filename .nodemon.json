@@ -1,0 +1,16 @@
+{
+  "restartable": "rs",
+  "ignore": [
+    "test/**"
+  ],
+  "verbose": true,
+  "execMap": {
+    "js": "node"
+  },
+  "watch": [
+    "config/**/*",
+    "src/**/*",
+    "bin/**/*"
+  ],
+  "ext": "js json"
+}
