@@ -20,4 +20,5 @@ module.exports = {
   seeds: {
     directory: `${__dirname}/../db/seeds/`,
   },
+  debug: env.NODE_ENV === 'development',
 };
