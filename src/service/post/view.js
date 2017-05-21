@@ -1,16 +1,16 @@
-module.exports = async function viewPost({ userRepository, id }) {
-  const safeId = parseInt(id, 10);
+const { NotFoundError } = require('meaning-error');
 
-  if (isNaN(safeId)) {
+
+module.exports = async function viewPost({ postRepository, id }) {
+  if (!id) {
     throw new NotFoundError('Could not find post');
   }
 
-  const post = await userRepository.findById(safeId);
+  const post = await postRepository.findById(id);
 
   if (!post) {
     throw new NotFoundError('Could not find post');
   }
 
-
   return post;
-}
+};

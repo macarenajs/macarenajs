@@ -10,13 +10,9 @@ module.exports = function repository(name) {
 
 
 function loadRepositoriesIfNeeded() {
-  if (repositories) {
-    return;
-  }
-
   repositories = loader(__dirname);
-  repositories
-    .forEach(async (repository, name) => {
-      repositories.set(name, repository(await boot('knex')()));
-    });
+
+  for (const [name, repository] of repositories) {
+    repositories.set(name, repository(boot('knex')));
+  }
 }

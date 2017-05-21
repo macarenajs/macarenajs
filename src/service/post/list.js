@@ -1,3 +1,3 @@
-module.exports = function listPosts({ userRepository }) {
-  return userRepository.findAll();
-}
+module.exports = function listPosts({ postRepository }) {
+  return postRepository.findAll();
+};

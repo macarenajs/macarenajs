@@ -4,7 +4,7 @@ module.exports = function postPresenter(data) {
   }
 
   return view(data);
-}
+};
 
 
 function list(posts) {
@@ -13,8 +13,8 @@ function list(posts) {
     _links: {
       self: '/posts',
       next: '/posts?page=2',
-    }
-  }
+    },
+  };
 }
 
 
