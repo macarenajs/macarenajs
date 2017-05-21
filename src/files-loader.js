@@ -3,33 +3,28 @@ const requireDirAsMap = require('require-dir-as-map');
 
 module.exports = function loader(directory) {
   return requireDirAsMap(
-    directory,
+    addEndSlashIfNeeded(directory),
     {
       filter: filterFile.bind(null, directory),
-      map: mapModuleName
     }
   );
-}
+};
 
 
 function filterFile(directory, file) {
-  return isJavascript(file) && isDifferentThanIndexFile(directory, file);
-}
-
-
-function isJavascript(file) {
-  return file.endsWith('.js');
+  return isDifferentThanIndexFile(directory, file);
 }
 
 
 function isDifferentThanIndexFile(directory, file) {
-  return file !== 'index.js'
+  return file !== 'index.js';
 }
 
 
-function mapModuleName({ module, file }) {
-  const name = module.NAME || getNameBasedOnFile(file);
+function addEndSlashIfNeeded(directory) {
+  if (directory.endsWith('/')) {
+    return directory;
+  }
 
-  return name;
+  return `${directory}/`;
 }
-
