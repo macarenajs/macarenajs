@@ -10,8 +10,5 @@ module.exports = {
     host: env.HTTP_HOST || '0.0.0.0',
     port: env.HTTP_PORT || '3000',
   },
-  db: {
-    ...knex,
-    waitConnection: ms('5s'),
-  },
+  db: Object.assign({}, knex, { waitConnection: ms('5s') }),
 };
