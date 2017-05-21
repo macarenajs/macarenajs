@@ -19,6 +19,8 @@ services:
   db:
     image: postgres:9.6.3-alpine
     container_name: db
+    ports:
+      - "5432:5432"
     volumes:
       - ./.docker/tmp/postgres/:/var/lib/postgresql/data
     env_file:
