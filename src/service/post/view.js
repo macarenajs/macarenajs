@@ -1,8 +1,10 @@
+const isUuid = require('is-uuid');
 const { NotFoundError } = require('meaning-error');
 
 
 module.exports = async function viewPost({ postRepository, id }) {
-  if (!id) {
+  const isInvalidId = !id || !isUuid.v4(id);
+  if (isInvalidId) {
     throw new NotFoundError('Could not find post');
   }
 

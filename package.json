@@ -26,6 +26,7 @@
     "express": "^4.15.2",
     "express-async-wrap": "^1.0.0",
     "helmet": "^3.6.0",
+    "is-uuid": "^1.0.2",
     "knex": "^0.13.0",
     "meaning-error": "^2.1.0",
     "meaning-error-middleware": "^0.1.1",

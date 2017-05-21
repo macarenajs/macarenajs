@@ -2,6 +2,8 @@ const repository = require('../repository');
 const presenter = require('../presenter');
 const service = require('../service');
 
+// @TODO maybe routes should not know about express...
+// if add babel support perhaps routes can be decorators?
 module.exports = function postRoutes(app) {
   app.post('/posts', create);
   app.get('/posts', list);
@@ -27,7 +29,7 @@ async function list(req, res) {
 
 async function view(req, res) {
   const postRepository = repository('post');
-  const post = await service('post').list({ postRepository, id: req.params.id });
+  const post = await service('post').view({ postRepository, id: req.params.id });
 
   res.json(presenter('post')(post));
 }
@@ -37,7 +39,7 @@ async function update(req, res) {
   const post = await service('post').update({
     postRepository,
     id: req.params.id,
-    post: req.body,
+    data: req.body,
   });
 
   res.json(presenter('post')(post));
