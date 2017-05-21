@@ -1,5 +1,4 @@
+#!/usr/bin/env node
 const server = require('../src/');
 
-console.log('here?!');
-console.log(server);
 server.start();
