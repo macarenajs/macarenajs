@@ -2,6 +2,7 @@ const express = require('express');
 
 const config = require('../config');
 const debug = require('./debug');
+const boot = require('./boot');
 const routes = require('./routes');
 
 module.exports = {
@@ -9,21 +10,21 @@ module.exports = {
   start,
 };
 
-function application() {
+async function application() {
   handleErrors();
 
   const app = express();
 
+  await boot.init(config);
   routes(app);
 
   return app;
 }
 
 async function start() {
-  const app = application();
+  const app = await application();
 
   const { http } = config;
-
 
   app.listen(http.port, http.host, () => {
     debug('Server started at [%s:%s]', http.host, http.port);
