@@ -1,5 +1,7 @@
 const ms = require('ms');
 
+const knex = require('./knex');
+
 const { env } = process;
 
 module.exports = {
@@ -9,14 +11,7 @@ module.exports = {
     port: env.HTTP_PORT || '3000',
   },
   db: {
-    client: 'pg',
-    connection: {
-      host: env.DB_HOST || '127.0.0.1',
-      port: env.DB_PORT || '5432',
-      user: env.DB_USER,
-      password: env.DB_PASSWORD,
-      database: env.DB_DATABASE,
-    },
+    ...knex,
     waitConnection: ms('5s'),
   },
 };

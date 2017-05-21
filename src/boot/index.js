@@ -2,19 +2,20 @@ const loader = require('../files-loader');
 const config = require('../../config');
 
 let boots;
-module.exports = function boot(name) {
-  loadBootsIfNeeded();
+function boot(name) {
+  if (!boots) {
+    throw new Error('Boot not initialized');
+  }
 
   return boots.get(name);
-};
+}
 
-
-function loadBootsIfNeeded() {
+boot.init = async () => {
   boots = loader(__dirname);
 
-  boots.forEach((boot, name) => {
-    boots.set(name, boot(config));
-  });
+  for (const [name, bootEntry] of boots) {
+    boots.set(name, await bootEntry(config));
+  }
+};
 
-  return boots;
-}
+module.exports = boot;
