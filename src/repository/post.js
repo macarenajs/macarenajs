@@ -5,8 +5,11 @@ module.exports = function postRepository(knex) {
     create: create.bind(null, knex),
     update: update.bind(null, knex),
     remove: remove.bind(null, knex),
+    exists: exists.bind(null, knex),
+    isTitleUnique: isTitleUnique.bind(null, knex),
   };
 };
+
 
 async function findById(knex, id) {
   return knex('posts')
@@ -15,11 +18,13 @@ async function findById(knex, id) {
     .first();
 }
 
+
 function findAll(knex) {
   return knex('posts')
     .where({ deleted: null })
     .select(['id', 'title', 'body']);
 }
+
 
 async function create(knex, data) {
   const [id] = await knex('posts')
@@ -29,14 +34,36 @@ async function create(knex, data) {
   return id;
 }
 
+
 function update(knex, id, data) {
   return knex('posts')
     .where({ id })
     .update(data);
 }
 
+
 function remove(knex, id) {
   return knex('posts')
     .where({ id })
     .update({ deleted: new Date() });
+}
+
+
+async function exists(knex, id) {
+  const [count] = await knex('posts')
+    .where({ id, deleted: null })
+    .count();
+
+  return count > 0;
+}
+
+
+async function isTitleUnique(knex, title) {
+  const [count] = await knex('posts')
+    .whereRaw('LOWER(title)', '=', title)
+    .count();
+
+  console.log(count);
+
+  return count > 0;
 }
