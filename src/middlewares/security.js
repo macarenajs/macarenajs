@@ -4,8 +4,5 @@ const helmet = require('helmet');
 const combineMiddlewares = require('./combine-middlewares');
 
 module.exports = function security() {
-  return combineMiddlewares([
-    methodOverride(),
-    helmet.hidePoweredBy(),
-  ]);
+  return combineMiddlewares([methodOverride(), helmet.hidePoweredBy()]);
 };

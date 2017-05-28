@@ -8,7 +8,6 @@ module.exports = function repository(name) {
   return repositories.get(name);
 };
 
-
 function loadRepositoriesIfNeeded() {
   repositories = loader(__dirname);
 

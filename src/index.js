@@ -31,15 +31,12 @@ async function start() {
   });
 }
 
-
 function handleErrors() {
   handlePromiseRejectionError();
 }
-
 
 function handlePromiseRejectionError() {
   process.on('unhandledRejection', (reason) => {
     console.error(reason.stack || reason);
   });
 }
-

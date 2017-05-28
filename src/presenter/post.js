@@ -6,7 +6,6 @@ module.exports = function postPresenter(data) {
   return view(data);
 };
 
-
 function list(posts) {
   return {
     list: posts.map(view),
@@ -16,7 +15,6 @@ function list(posts) {
     },
   };
 }
-
 
 function view(post) {
   return {

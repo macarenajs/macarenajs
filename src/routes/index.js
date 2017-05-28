@@ -15,7 +15,6 @@ module.exports = function routes(app) {
   app.use(meaningErrorMiddleware);
 };
 
-
 function loadRoutes() {
   return fileLoders(__dirname);
 }

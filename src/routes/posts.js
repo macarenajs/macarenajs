@@ -12,7 +12,6 @@ module.exports = function postRoutes(app) {
   app.delete('/posts/:id', remove);
 };
 
-
 async function create(req, res) {
   const postRepository = repository('post');
   const post = await service('post').create({ postRepository, data: req.body });
@@ -29,7 +28,10 @@ async function list(req, res) {
 
 async function view(req, res) {
   const postRepository = repository('post');
-  const post = await service('post').view({ postRepository, id: req.params.id });
+  const post = await service('post').view({
+    postRepository,
+    id: req.params.id,
+  });
 
   res.json(presenter('post')(post));
 }
