@@ -4,7 +4,7 @@ const combineMiddlewares = require('./combine-middlewares');
 
 module.exports = function httpParser() {
   return combineMiddlewares([
-    bodyParser.urlencoded({ extended: true }),
-    bodyParser.json(),
+    bodyParser.urlencoded({ extended: true, limit: '2MB' }),
+    bodyParser.json({ limit: '2MB' }),
   ]);
 };
