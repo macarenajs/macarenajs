@@ -11,7 +11,7 @@ module.exports = function repository(name) {
 function loadRepositoriesIfNeeded() {
   repositories = loader(__dirname);
 
-  for (const [name, repository] of repositories) {
+  for (const [name, repository] of repositories) { // eslint-disable-line
     repositories.set(name, repository(boot('knex')));
   }
 }

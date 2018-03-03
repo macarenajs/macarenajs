@@ -33,6 +33,7 @@
     "helmet": "^3.6.0",
     "is-uuid": "^1.0.2",
     "knex": "^0.13.0",
+    "lodash.partial": "^4.2.1",
     "meaning-error": "^2.1.0",
     "meaning-error-middleware": "^0.1.1",
     "method-override": "^2.3.8",
