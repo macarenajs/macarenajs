@@ -10,8 +10,7 @@ function list(posts) {
   return {
     list: posts.map(view),
     _links: {
-      self: '/posts',
-      next: '/posts?page=2',
+      self: { href: '/posts' },
     },
   };
 }
@@ -22,7 +21,7 @@ function view(post) {
     title: post.title,
     body: post.body,
     _links: {
-      self: `/posts/${post.id}`,
+      self: { href: `/posts/${post.id}` },
     },
   };
 }
