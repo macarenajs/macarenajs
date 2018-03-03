@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+  macarena-test:
+    build:
+      context: ./.docker
+      dockerfile: Dockerfile
+    container_name: api-test
+    command: bash -c "waitforit -host=db-test -port=5432 -timeout=10 && yarn run test:watch"
+    depends_on:
+      - db-test
+    volumes:
+      - ./:/usr/src/app
+    environment:
+      - APP_NAME=macarena-test
+      - DB_CLIENT=pg
+      - DB_HOST=db-test
+      - DB_PORT=5432
+      - DB_DATABASE=macarena-test
+      - DB_USER=macarena-test
+      - DB_PASSWORD=macarena-test
+
+  db-test:
+    image: postgres:9.6.3-alpine
+    container_name: db-test
+    environment:
+      - POSTGRES_DB=macarena-test
+      - POSTGRES_USER=macarena-test
+      - POSTGRES_PASSWORD=macarena-test
