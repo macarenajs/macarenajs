@@ -13,8 +13,8 @@ function boot(name) {
 boot.init = async () => {
   boots = loader(__dirname);
 
-  for (const [name, bootEntry] of boots) {
-    boots.set(name, await bootEntry(config));
+  for (const [name, bootEntry] of boots) { // eslint-disable-line
+    boots.set(name, await bootEntry(config)); // eslint-disable-line
   }
 };
 
