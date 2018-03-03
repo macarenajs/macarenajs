@@ -1,4 +1,4 @@
-FROM node:8.0.0-wheezy
+FROM node:8.9.4-wheezy
 
 RUN curl -l https://raw.githubusercontent.com/dockito/vault/master/onvault?latest > /usr/local/bin/ONVAULT && \
     chmod +x /usr/local/bin/ONVAULT
