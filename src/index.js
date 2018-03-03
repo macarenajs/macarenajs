@@ -1,9 +1,9 @@
 const express = require('express');
 
 const config = require('../config');
-const debug = require('./debug');
 const boot = require('./boot');
-const routes = require('./routes');
+const route = require('./route');
+const task = require('./task');
 
 module.exports = {
   application,
@@ -16,7 +16,7 @@ async function application() {
   const app = express();
 
   await boot.init(config);
-  routes(app);
+  route(app);
 
   return app;
 }
@@ -27,9 +27,13 @@ async function start() {
   const { http } = config;
 
   app.listen(http.port, http.host, () => {
-    debug('Server started at [%s:%s]', http.host, http.port);
+    console.log('Server started at [%s:%s]', http.host, http.port);
   });
+
+  // run tasks
+  task();
 }
+
 
 function handleErrors() {
   handlePromiseRejectionError();
