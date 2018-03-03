@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -eou pipefail
+
+docker-compose -f docker-compose-test.yml run --rm macarena-test \
+  bash -c "waitforit -host=db-test -port=5432 -timeout=30 && yarn run test:watch"

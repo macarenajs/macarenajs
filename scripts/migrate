@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -eou pipefail
+
+docker-compose run --rm --no-deps macarena \
+ bash -c "waitforit -host=db -port=5432 -timeout=60 && yarn run knex migrate:latest"

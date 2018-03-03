@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+set -eou pipefail
+dir="$(dirname "$0")"
+
+# building
+
+printf "Start build 🚧\n\n"
+docker-compose build
+
+printf "\n\n✅   Finish build\n"
+sleep 2
+printf "\033c"
+
+
+# dependencies
+
+printf "Start install deps "yarn install" ☕️\n\n"
+
+"$dir/yarn" install
+
+printf "\n\n✅   Finish install yarn\n"
+sleep 2
+printf "\033c"
+
+
+# running containers
+
+printf "Get containers running 🏃\n\n"
+
+docker-compose up -d
+
+printf "\n\n✅   Finish get containers running\n"
+sleep 2
+printf "\033c"
+
+
+printf "Run database migrations 📈\n\n"
+
+# migrate data
+
+"$dir/migrate"
+
+printf "\n\n✅   Finish migration\n"
+sleep 2
+printf "\033c"
+
+printf "\033c"
+printf "===================\n"
+echo "💪  It's all set 💥"
+echo "==================="
+printf "\n\n"
+echo "You can watch the logs \"docker-compose logs -f\" and \"open http://localhost:3000\""
