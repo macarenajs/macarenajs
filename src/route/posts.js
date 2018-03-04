@@ -1,9 +1,6 @@
-const repository = require('../repository');
 const presenter = require('../presenter');
 const service = require('../service');
 
-// @TODO maybe routes should not know about express...
-// if add babel support perhaps routes can be decorators?
 module.exports = function postRoutes(app) {
   app.post('/posts', create);
   app.get('/posts', list);
@@ -13,23 +10,19 @@ module.exports = function postRoutes(app) {
 };
 
 async function create(req, res) {
-  const postRepository = repository('post');
-  const post = await service('post').create({ postRepository, data: req.body });
+  const post = await service('post').create({ data: req.body });
 
   res.json(presenter('post')(post));
 }
 
 async function list(req, res) {
-  const postRepository = repository('post');
-  const posts = await service('post').list({ postRepository });
+  const posts = await service('post').list();
 
   res.json(presenter('post')(posts));
 }
 
 async function view(req, res) {
-  const postRepository = repository('post');
   const post = await service('post').view({
-    postRepository,
     id: req.params.id,
   });
 
@@ -37,9 +30,7 @@ async function view(req, res) {
 }
 
 async function update(req, res) {
-  const postRepository = repository('post');
   const post = await service('post').update({
-    postRepository,
     id: req.params.id,
     data: req.body,
   });
@@ -48,8 +39,6 @@ async function update(req, res) {
 }
 
 async function remove(req, res) {
-  const postRepository = repository('post');
-
-  await service('post').remove({ postRepository, id: req.params.id });
+  await service('post').remove({ id: req.params.id });
   res.sendStatus(204);
 }

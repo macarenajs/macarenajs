@@ -14,7 +14,7 @@ module.exports = {
   seeds: {
     directory: `${__dirname}/../db/seeds/`,
   },
-  debug: env.NODE_ENV !== 'production',
+  debug: env.NODE_ENV === 'development',
   ssl: env.NODE_ENV === 'production',
 };
 

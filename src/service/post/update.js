@@ -1,12 +1,13 @@
 const { NotFoundException } = require('meaning-error');
+const repository = require('../../repository');
 
-module.exports = async function updatePost({ postRepository, id, data }) {
-  const hasPost = await postRepository.exists(id);
+module.exports = async function updatePost({ id, data }) {
+  const hasPost = await repository('post').exists(id);
   if (!hasPost) {
     throw new NotFoundException('Could not found post');
   }
 
-  await postRepository.update(id, data);
+  await repository('post').update(id, data);
 
-  return postRepository.findById(id);
+  return repository('post').findById(id);
 };

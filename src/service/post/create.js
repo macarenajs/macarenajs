@@ -1,13 +1,15 @@
 const yup = require('yup');
 const { BadRequestError } = require('meaning-error');
 
-module.exports = async function createPost({ postRepository, data }) {
+const repository = require('../../repository');
+
+module.exports = async function createPost({ data }) {
   const post = sanitize(data);
 
-  await validate({ postRepository, post });
-  const postId = await postRepository.create(post);
+  await validate({ post });
+  const postId = await repository('post').create(post);
 
-  return postRepository.findById(postId);
+  return repository('post').findById(postId);
 };
 
 
@@ -30,13 +32,13 @@ function titleize(text) {
   return null;
 }
 
-async function validate({ postRepository, post }) {
-  yup.addMethod(yup.string, 'isTitleUnique', function (message) {
+async function validate({ post }) {
+  yup.addMethod(yup.string, 'isTitleUnique', function isTitleUnique(message) {
     return this.test({
       name: 'is-title-unique',
       exclusive: true,
       message: message || 'title is not unique',
-      test: postRepository.isTitleUnique,
+      test: repository('post').isTitleUnique,
     });
   });
 

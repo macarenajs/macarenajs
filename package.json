@@ -20,9 +20,11 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "husky": "^0.13.3",
+    "knex-cleaner": "^1.1.4",
     "lint-staged": "^3.5.0",
     "mocha": "^3.3.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "supertest": "^3.0.0"
   },
   "dependencies": {
     "asyncify-express": "^0.0.0",

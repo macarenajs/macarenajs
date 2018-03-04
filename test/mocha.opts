@@ -1,0 +1,4 @@
+--recursive
+--harmony
+--report spec
+--timeout 5000

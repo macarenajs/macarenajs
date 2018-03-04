@@ -1,3 +1,5 @@
-module.exports = function listPosts({ postRepository }) {
-  return postRepository.findAll();
+const repository = require('../../repository');
+
+module.exports = function listPosts() {
+  return repository('post').findAll();
 };
